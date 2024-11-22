@@ -1,0 +1,100 @@
+{% extends 'attendee/layouts/main.html' %} 
+{% block body %}
+<style>
+    /* General Styles */
+    .container{
+        height: 85vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .signup-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        height: 90%;
+        width: 100%;
+    }
+    
+    .card {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        box-sizing: border-box;
+        width: 40%;
+        
+    }
+    .card form{
+        height: 100%;
+    }
+    .form-control{
+        margin: 20px 0;
+    }
+
+    .card h2 {
+        margin-top: 15px;
+        font-size: 1.5rem;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background: #007bff;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #0056b3;
+    }
+
+    p {
+        margin: 10px 0 0;
+    }
+
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    /* Hide elements with the class hidden */
+</style>
+
+<div class="container">
+    <!-- Client Card -->
+    <div id="signup" class="signup-container">
+      <!-- Client Signup Card -->
+      <div class="card">
+        <h2>Login as an Event Attendee</h2>
+        <form id="client-form" method="Post" action="">
+          {% csrf_token %} 
+          <input type="text" class="form-control" name="username" placeholder="Username">
+          <input type="password" class="form-control" name="password" placeholder="Password">
+          <button type="submit">Login</button>
+          <p>New here? <a href="{% url 'register' %}">Sing Up</a></p>
+        </form>
+      </div>
+
+      <!-- Service Provider Signup Card -->
+      <div class="card">
+        <h2>Login as an Event Organizer</h2>
+        <form id="client-form" method="Post" action="">
+            {% csrf_token %} 
+            <input type="text" class="form-control" name="username" placeholder="Username">
+            <input type="password" class="form-control" name="password" placeholder="Password">
+            <button type="submit">Login</button>
+            <p>New here? <a href="{% url 'register' %}">Sing Up</a></p>
+        </form>
+      </div>
+    </div>
+</div>
+{% endblock %}

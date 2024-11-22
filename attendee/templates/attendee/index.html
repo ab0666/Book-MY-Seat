@@ -1,0 +1,457 @@
+{% extends 'attendee/layouts/main.html' %}
+{% load static %}
+
+{% block body %}
+    {% include 'attendee/inc/slider.html' %}
+    <style>
+    
+    main {
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+      background-color: #333;
+      color: #fff;
+    }
+    
+    .main-section{
+      margin: 1rem 0px;
+    }
+    
+    .main-container-title{
+      display: flex;
+      height: 10vh;
+      width: 97%;
+      align-items: center;
+    }
+    .main-container-title h4{
+      padding: 0px 10px ;
+    }
+    
+    .main-container-title h4 a{
+      text-decoration: none;
+    }
+    
+    .services-category{
+      width: 97%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .text-center{
+      font-size: 1.2rem;
+    }
+    
+    .slider-container {
+      display: flex;
+      height: 90%;
+      width: 100%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      transition: all 0.3s ease; /* Smooth sliding transition */
+    }
+    
+    /* Hide scrollbar */
+    .slider-container::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .slider-card {
+      flex: 0 0 20%;
+      height: 100%;
+      scroll-snap-align: start;
+      border: 1px solid #ddd;
+      margin-right: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    .slider-card a{
+      height: 100%;
+    }
+    
+    .prevBtn,
+    .nextBtn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #333;
+      color: #fff;
+      padding: 5px 10px;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .prevBtn {
+      left: 10px;
+    }
+    
+    .nextBtn {
+      right: 10px;
+    }
+    
+    /* event */     /* Category */
+    .services-event, .services-category{
+      width: 97%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .services-category .card-body{
+      padding: 0;
+    }
+
+    .services-category .card {
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      transition: box-shadow 0.3s ease;
+      width: 100%;
+    }
+
+    .services-category .card-image {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .services-category .card-image h4{
+      font-size: 1.6rem;
+      font-weight: 500;
+    }
+
+    .services-category .card-image img {
+      width: 100%;
+      display: block;
+      border-radius: 10px;
+      transition: opacity 0.3s ease;
+    }
+
+    .services-category .card-image::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      opacity: 1;
+      transition: background 0.3s ease;
+      z-index: 1;
+    }
+
+    .services-category .card-image:hover::before {
+      background: rgba(255, 165, 0, 0.8);
+    }
+
+    .services-category .text-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5rem;
+      color: #fff;
+      text-align: center;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .prevBtn,
+    .nextBtn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #333;
+      color: #fff;
+      padding: 5px 10px;
+      border: none;
+      cursor: pointer;
+      z-index: 3;
+    }
+
+    .services-category .slider-card {
+      border: none;
+    }
+   
+    /* banner */
+    .main-banner {
+            height: 40vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: url("{% static 'images/banner.jpeg' %}") ;
+            background-size: cover;
+            background-position: center;
+            background-repeat: repeat;
+        }
+
+        .main-banner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1; 
+        }
+
+        .main-banner h1, p,  button{
+            position: relative; 
+            font-weight: bold;
+            color: #ccc;
+            z-index: 2; 
+            text-align: center;
+        }
+        .main-banner h1{
+          font-size: 3rem;
+        }
+        .main-banner p{
+          font-size: 1.5rem;
+        }
+        
+  /* trending search */
+    .main-trending-search{
+      height: 25vh;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+    }
+
+    .main-trending-search .main-trending-search-holder{
+      height: 100%;
+      width: 97%;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .main-trending-search .main-trending-search-holder h1{
+      font-weight: bold;
+      font-size: 5rem;
+      color: #ccc;
+    }
+    .card-body {
+      text-align: center;
+    }
+    .card-body span{
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+   
+    </style>
+    <main>
+      <div class="main-container-title">
+        <h1>Services</h1>
+        <h4><a href="#">View More ></a></h4>
+      </div>
+      <div class="services-event main-section">
+        <div class="slider-container">
+                {% for item in trending_event %}
+                        <div class="card slider-card">
+                            <a href="{% url 'eventview' item.category.slug item.slug %}">
+                                <div class="card-body">
+                                    <div class="category-image">
+                                        <img src="{{item.event_image.url }}" alt="Event image" />
+                                    </div>
+                                    <h4 class="text-center">{{item.name}}</h4>
+                                    <span>₹{{item.selling_price | stringformat:'d'}}</span>
+                                </div>
+                            </a>
+                        </div>
+                {% endfor %}
+        </div>
+        <button class="prevBtn">Prev</button>
+        <button class="nextBtn">Next</button>
+      </div>
+      <!-- category -->
+      <div class="main-container-title">
+        <h1>Services</h1>
+        <h4><a href="#">View More ></a></h4>
+      </div>
+      <div class="services-category main-section">
+        <div class="slider-container">
+          {% for item in category %}
+            <div class="card slider-card">
+              <a href="{% url 'servicesview' item.slug %}">
+                <div class="card-body">
+                  <div class="card-image">
+                    <img src="{{item.image.url }}" alt="Category image"/>
+                    <h4 class="text-overlay">{{item.name}}</h4>
+                  </div>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+        <button class="prevBtn">Prev</button>
+        <button class="nextBtn">Next</button>
+      </div>
+      
+      
+      <!-- banner -->
+      <div class="main-banner">
+        <h1>BookMySeat</h1>
+          <p>BookMySeat makes booking easy across various categories,
+            from dining and entertainment to wellness and grooming.
+            Enjoy quick reservations and instant confirmations,
+            saving you time and eliminating the hassle of waiting.</p>
+            <a href="{% url 'services' %}">
+              <button class="btn btn-primary">Explore Now</button>
+            </a>
+      </div>
+      <div class="main-container-title">
+        <h1>Services</h1>
+        <h4><a href="#">View More ></a></h4>
+      </div>
+      <div class="services-event main-section">
+        <div class="slider-container">
+                {% for item in trending_event %}
+                        <div class="card slider-card">
+                            <a href="{% url 'eventview' item.category.slug item.slug %}">
+                                <div class="card-body">
+                                    <div class="category-image">
+                                        <img src="{{item.event_image.url }}" alt="Event image"/>
+                                    </div>
+                                    <h4 class="text-center">{{item.name}}</h4>
+                                    <span>₹{{item.selling_price | stringformat:'d'}}</span>
+                                </div>
+                            </a>
+                        </div>
+                {% endfor %}
+        </div>
+        <button class="prevBtn">Prev</button>
+        <button class="nextBtn">Next</button>
+      </div>
+     
+      <div class="main-container-title">
+        <h1>Services</h1>
+        <h4><a href="#">View More ></a></h4>
+      </div>
+      <div class="services-event main-section">
+        <div class="slider-container">
+                {% for item in trending_event %}
+                        <div class="card slider-card">
+                            <a href="{% url 'eventview' item.category.slug item.slug %}">
+                                <div class="card-body">
+                                    <div class="category-image">
+                                        <img src="{{item.event_image.url }}" alt="Event image"/>
+                                    </div>
+                                    <h4 class="text-center">{{item.name}}</h4>
+                                    <span>₹{{item.selling_price | stringformat:'d'}}</span>
+                                </div>
+                            </a>
+                        </div>
+                {% endfor %}
+        </div>
+        <button class="prevBtn">Prev</button>
+        <button class="nextBtn">Next</button>
+      </div>
+      <div class="main-container-title">
+        <h1>Services</h1>
+        <h4><a href="#">View More ></a></h4>
+      </div>
+      <div class="services-event main-section">
+        <div class="slider-container">
+                {% for item in trending_event %}
+                        <div class="card slider-card">
+                            <a href="{% url 'eventview' item.category.slug item.slug %}">
+                                <div class="card-body">
+                                    <div class="category-image">
+                                        <img src="{{item.event_image.url }}" alt="Event image"/>
+                                    </div>
+                                    <h4 class="text-center">{{item.name}}</h4>
+                                    <span>₹{{item.selling_price | stringformat:'d'}}</span>
+                                </div>
+                            </a>
+                        </div>
+                {% endfor %}
+        </div>
+        <button class="prevBtn">Prev</button>
+        <button class="nextBtn">Next</button>
+      </div>
+      <div class="main-container-title">
+        <h1>Trending Search Right Now</h1>
+      </div>
+      <div class="main-trending-search">
+        <div class="main-trending-search-holder">
+          <h1>Trending Search</h1>
+        </div>
+      </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const sliders = document.querySelectorAll('.slider-container');
+        const prevBtns = document.querySelectorAll('.prevBtn');
+        const nextBtns = document.querySelectorAll('.nextBtn');
+    
+        sliders.forEach((slider, index) => {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+    
+            let currentSlide = 0;
+            const totalSlides = slider.querySelectorAll('.slider-card').length;
+    
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+                slider.style.scrollBehavior = 'auto'; // Disable smooth scrolling during drag
+            });
+    
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.style.scrollBehavior = 'smooth'; // Re-enable smooth scrolling
+            });
+    
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.style.scrollBehavior = 'smooth'; // Re-enable smooth scrolling
+            });
+    
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 3; // Adjust scroll speed
+                slider.scrollLeft = scrollLeft - walk;
+            });
+    
+            prevBtns[index].addEventListener('click', () => {
+                currentSlide--;
+                if (currentSlide < 0) {
+                    currentSlide = totalSlides - 1;
+                    slider.scrollTo({ left: slider.scrollWidth - slider.offsetWidth, behavior: 'smooth' });
+                } else {
+                    slider.scrollLeft -= slider.offsetWidth;
+                }
+            });
+    
+            nextBtns[index].addEventListener('click', () => {
+                currentSlide++;
+                if (currentSlide >= totalSlides) {
+                    currentSlide = 0;
+                    slider.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    slider.scrollLeft += slider.offsetWidth;
+                }
+            });
+        });
+    });
+    </script>
+{% endblock body %}

@@ -1,0 +1,46 @@
+{% extends 'attendee/layouts/main.html' %} 
+{% block body %}
+    <div class="py-3 bg-primary">
+        <div class="container">
+            <a class="text-white" href="{% url 'home' %}">Home /</a>
+            <a class="text-white" href="{% url 'mybookings' %}">My Bookings </a>
+        </div>
+    </div>
+    <div class="container my-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h2>My Bookings</h2>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Event date</th>
+                                    <th>Tracking Number</th>
+                                    <th>Total Price</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in bookings %}  
+                                    <tr>
+                                        <td>{{item.created_at}}</td>
+                                        <td>{{item.tracking_no}}</td>
+                                        <td>{{item.total_price}}</td>
+                                        <td>{{item.status}}</td>
+                                        <td>
+                                            <a href="{% url 'bookingview' item.tracking_no %}" class="btn btn-primary">View</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %} 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

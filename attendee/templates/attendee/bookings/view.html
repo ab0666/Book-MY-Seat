@@ -1,0 +1,68 @@
+{% extends 'attendee/layouts/main.html' %} 
+{% block body %}
+    <div class="py-3 bg-primary">
+        <div class="container">
+            <a class="text-white" href="{% url 'home' %}">Home /</a>
+            <a class="text-white" href="{% url 'mybookings' %}">My Bookings </a>
+        </div>
+    </div>
+    <div class="container my-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h2 class="mb=0">Booking View
+                            <a href="{% url 'mybookings' %}" class="btn btn-warning float-end text-white"> <i class="fa fa-reply"></i> Back</a>
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                       <div class="row">
+                        <div class="col-md-6">
+                            <h4>User Details</h4>
+                            <hr>
+                            <label class="mt-2" for="">First name</label>
+                            <div class="border p-1">{{booking.fname}}</div>
+                            <label class="mt-2" for="">Last name</label>
+                            <div class="border p-1">{{booking.lname}}</div>
+                            <label class="mt-2" for="">Email</label>
+                            <div class="border p-1">{{booking.email}}</div>
+                            <label class="mt-2" for="">Contact No</label>
+                            <div class="border p-1">{{booking.phone}}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-header">
+                                <h2>Booking Deatils</h2>
+                            </div>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Quantity</th>
+                                        <th>Total Price</th>
+                                        <th>Image</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in bookingitems %}  
+                                        <tr>
+                                            <td>{{item.event.name}}</td>
+                                            <td>{{item.quantity}}</td>
+                                            <td>{{item.price}}</td>
+                                            <td>
+                                                <img src="{{item.event.event_image.url}}" height="50px" width="50px" alt="Event image">
+                                            </td>
+                                        </tr>
+                                    {% endfor %} 
+                                </tbody>
+                            </table>
+                            <h4>Grand Total : <span class="float-end"> {{booking.total_price}} </span></h4>
+                            <h6 class="border p-2">Booking Status : <span class="float-end"> {{booking.status}} </span></h6>
+                            <h6 class="border p-2">Tracking No. : <span class="float-end"> {{booking.tracking_no}} </span></h6>
+                        </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
